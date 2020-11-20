@@ -22,6 +22,7 @@
     "@babel/preset-react": "^7.12.5",
     "@babel/preset-typescript": "^7.12.1",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
+    "@types/classnames": "^2.2.11",
     "@types/hookrouter": "^2.2.4",
     "@types/react": "^16.9.56",
     "@types/react-dom": "^16.9.9",
