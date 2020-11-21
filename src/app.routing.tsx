@@ -3,10 +3,12 @@ import { makeNavigate, makeRouteMap } from "./infrastructure/routing.utos";
 import { navigate as hookRouterNavigate } from "hookrouter";
 import { Buttons } from "./pages/buttons";
 import { HomePage } from "./pages/homePage";
+import { Inputs } from "./pages/inputs";
 
 const routes = {
   home: { path: "/", component: () => <HomePage /> },
   buttons: { path: "/buttons", component: () => <Buttons /> },
+  inputs: { path: "/inputs", component: () => <Inputs /> },
 } as const;
 
 export const createRoutes = () => {

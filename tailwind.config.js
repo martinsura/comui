@@ -18,6 +18,7 @@ module.exports = {
         border: "#e5e5ea",
         "black-color": "#414141",
         "red-color": "#dc3545",
+        "green-color": "#28a745",
       },
     },
   },

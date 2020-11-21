@@ -1,5 +1,17 @@
 import React from "react";
 import { navigate } from "../../app.routing";
+
+function SidebarLink(props: { text: string; route: () => void }) {
+  return (
+    <li className="my-px">
+      <a onClick={props.route} className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100 cursor-pointer">
+        <span className="flex items-center justify-center text-lg text-gray-400"></span>
+        <span className="ml-3">{props.text}</span>
+      </a>
+    </li>
+  );
+}
+
 export function Sidebar() {
   return (
     <div className="flex w-full max-w-xs p-4 bg-white">
@@ -17,12 +29,8 @@ export function Sidebar() {
         <li className="my-px">
           <span className="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase">Components</span>
         </li>
-        <li className="my-px">
-          <a onClick={() => navigate.buttons()} className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100 cursor-pointer">
-            <span className="flex items-center justify-center text-lg text-gray-400"></span>
-            <span className="ml-3">Buttons</span>
-          </a>
-        </li>
+        <SidebarLink route={() => navigate.buttons()} text="Buttons" />
+        <SidebarLink route={() => navigate.inputs()} text="Inputs" />
       </ul>
     </div>
   );

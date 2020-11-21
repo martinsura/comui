@@ -8,11 +8,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const path = require("path");
 
+const publicPath = process.env.PUBLIC_PATH || "/";
 const isDev = process.env.WEBPACK_DEV_SERVER || false;
 const isProd = isDev === false;
-const publicPath = process.env.PUBLIC_PATH || "/";
-const version = process.env.GITHUB_SHA;
-const apiUrl = process.env.API_URL || "";
 
 function useCache(loaders) {
   if (isDev) {
@@ -84,12 +82,6 @@ const webpackConfig = {
     }),
     new MiniCssExtractPlugin({
       filename: "[name].[hash].css",
-    }),
-    new webpack.DefinePlugin({
-      IS_DEBUG: JSON.stringify(isDev),
-      VERSION: JSON.stringify(version),
-      API_URL: JSON.stringify(apiUrl),
-      PUBLIC_PATH: JSON.stringify(publicPath),
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
