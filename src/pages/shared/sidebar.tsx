@@ -31,6 +31,7 @@ export function Sidebar() {
         </li>
         <SidebarLink route={() => navigate.buttons()} text="Buttons" />
         <SidebarLink route={() => navigate.inputs()} text="Inputs" />
+        <SidebarLink route={() => navigate.datePickers()} text="Datepickers" />
       </ul>
     </div>
   );

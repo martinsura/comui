@@ -10,17 +10,16 @@ type Props = {
 };
 export function Checkbox(props: Props) {
   return (
-    <label className="cursor-pointer">
+    <label x-class={{ "inline-flex items-center": true, "text-sm": props.size === "sm" }} className="cursor-pointer">
       <input
-        x-class={
-          {
-            //          "p-1.5 text-sm": !props.size,
-            // "p-2 text-sm": props.size === "lg",
-            // "p-3 text-sm": props.size === "xl",
-            // "p-1 text-sm": props.size === "sm",
-          }
-        }
-        className={" focus:outline-none border focus:border-primary mr-2  " + props.className}
+        x-class={{
+          "h-5 w-5": !props.size,
+          "h-6 w-6": props.size === "lg",
+          "h-8 w-8": props.size === "xl",
+          "h-3 w-3": props.size === "sm",
+          "bg-gray-100 cursor-not-allowed": props.disabled,
+        }}
+        className={" outline-none cursor-pointer focus:outline-none focus:ring-0 ring-offset-0 text-primary  mr-2 " + props.className}
         type="checkbox"
         disabled={props.disabled}
         checked={props.value}

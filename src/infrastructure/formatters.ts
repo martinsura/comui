@@ -29,6 +29,13 @@ export const formatHours = (date: Date) => {
   return format(date, "H:mm", { locale: cs });
 };
 
+export const formatDay = (date: Date) => {
+  if (!date) {
+    return "";
+  }
+  return format(date, "d", { locale: cs });
+};
+
 export const formatMonth = (date: Date) => {
   if (!date) {
     return "";

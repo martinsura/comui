@@ -16,14 +16,15 @@ export function Inputs(props: Props) {
         </div>
       </div>
       <br />
+
       <Checkbox title="Checked ?" />
       <br />
       <Checkbox title="Large" size="lg" />
       <br />
       <Checkbox title="Small" size="sm" />
       <br />
+      <Checkbox title="Disabled" disabled />
       <br />
-      <Checkbox title="Small" size="sm" disabled />
     </div>
   );
 }
