@@ -1,8 +1,9 @@
-import { DoubleLeftOutlined, DoubleRightOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { CloseOutlined, DoubleLeftOutlined, DoubleRightOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { addDays, eachDayOfInterval, lastDayOfMonth, getDay } from "date-fns/esm";
 import cs from "date-fns/esm/locale/cs";
-import React from "react";
-import { formatDay, formatMonth } from "../infrastructure/formatters";
+import React, { useRef } from "react";
+import { formatDate, formatDay, formatMonth } from "../infrastructure/formatters";
+import { useOutsideClick } from "../infrastructure/hooks";
 export type DatePickerSize = "sm" | "lg" | "xl";
 type Props = {
   value?: Date;
@@ -14,6 +15,13 @@ type Props = {
   onChange?: (value: Date) => void;
 };
 export function DatePickerInput(props: Props) {
+  const [isDayPickerVisible, setIsDayPickerVisible] = React.useState(false);
+
+  const internalSelect = (e: Date) => {
+    setIsDayPickerVisible(false);
+    props.onChange?.(e);
+  };
+
   return (
     <div className="relative">
       <input
@@ -27,14 +35,23 @@ export function DatePickerInput(props: Props) {
         className={" focus:outline-none border ring-0 focus:border-primary " + props.className}
         disabled={props.disabled}
         placeholder={props.placeholder}
-        onChange={e => alert("d")}
+        onFocus={() => setIsDayPickerVisible(true)}
+        value={formatDate(props.value)}
+        onChange={() => {}}
       />
-      <DatePicker />
+      <DatePicker value={props.value} onSelect={e => internalSelect(e)} x-if={isDayPickerVisible} onClose={() => setIsDayPickerVisible(false)} />
     </div>
   );
 }
 
-function DatePicker() {
+function DatePicker(props: { onClose: () => void; onSelect: (date: Date) => void; value?: Date }) {
+  const ref = useRef();
+  useOutsideClick(ref, e => {
+    if (e.target.tagName && e.target.tagName.toLowerCase() === "input") {
+    } else {
+      props.onClose();
+    }
+  });
   const [year, setYear] = React.useState(new Date().getFullYear());
   const [month, setMonth] = React.useState(new Date().getMonth());
 
@@ -50,12 +67,8 @@ function DatePicker() {
   const isCurrentMonth = (date: Date) => {
     return date.getMonth() === month;
   };
-
-  const previousMonth = () => {
-    setMonth(month - 1);
-  };
-  const nextMonth = () => {
-    setMonth(month + 1);
+  const isSelectedDay = (date: Date) => {
+    return formatDate(props.value) === formatDate(date);
   };
 
   const renderDays = () => {
@@ -73,29 +86,39 @@ function DatePicker() {
     swap(names);
 
     return (
-      <div>
-        <div className="flex text-sm text-gray-400 justify-center  px-4 pt-3">
+      <div ref={ref}>
+        <div className="flex text-sm text-gray-400 justify-center px-3 pt-3">
           <div className="mr-auto">
-            <DoubleLeftOutlined className="mr-2 cursor-pointer" />
-            <LeftOutlined onClick={() => previousMonth()} className="cursor-pointer outline-none" />
+            <DoubleLeftOutlined className="mr-2 cursor-pointer outline-none" onClick={() => setYear(year - 1)} />
+            <LeftOutlined onClick={() => setMonth(month - 1)} className="cursor-pointer outline-none" />
           </div>
           <div className="mt-1">{capitalize(formatMonth(new Date(year, month, 1)))}</div>
           <div className="ml-auto">
-            <RightOutlined onClick={() => nextMonth()} className="mr-2 cursor-pointer" />
-            <DoubleRightOutlined className="cursor-pointer" />
+            <RightOutlined onClick={() => setMonth(month + 1)} className="mr-2 cursor-pointer outline-none" />
+            <DoubleRightOutlined onClick={() => setYear(year + 1)} className="cursor-pointer outline-none" />
           </div>
         </div>
-        <div className="grid grid-cols-7 gap-x-5 gap-y-3 p-4">
+        <div className="grid grid-cols-7 p-4 gap-x-6 gap-y-3 ">
           {names.map(n => {
             return (
-              <div className="text-xs font-medium" key={n}>
+              <div className="text-xs font-medium ml-1" key={n}>
                 {capitalize(n)}
               </div>
             );
           })}
           {days.map((d, i) => {
+            const isCurrentDay = isSelectedDay(d);
             return (
-              <div x-class={{ "text-gray-400": !isCurrentMonth(d), "text-black-color": isCurrentMonth(d) }} className="text-xs" key={i}>
+              <div
+                onClick={() => props.onSelect(d)}
+                x-class={{
+                  "bg-primary rounded-md text-white": isCurrentDay,
+                  "text-gray-400 ": !isCurrentMonth(d) && !isCurrentDay,
+                  "text-black-color": isCurrentMonth(d) && !isCurrentDay,
+                }}
+                className="text-xs cursor-pointer p-1"
+                key={i}
+              >
                 {formatDay(d)}
               </div>
             );
@@ -105,5 +128,5 @@ function DatePicker() {
     );
   };
 
-  return <div className="origin-top-right right-0 mt-1  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">{renderDays()}</div>;
+  return <div className="origin-top-right right-0 mt-1 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">{renderDays()}</div>;
 }

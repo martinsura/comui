@@ -32,3 +32,19 @@ export const useKey = (key: any, action: () => void) => {
     return () => window.removeEventListener("keyup", onKeyup);
   }, []);
 };
+
+export const useOutsideClick = (ref: any, callback: (event: any) => void) => {
+  const handleClick = e => {
+    if (ref.current && !ref.current.contains(e.target)) {
+      callback(e);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
+};
