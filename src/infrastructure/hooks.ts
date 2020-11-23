@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const useDidMountEffect = (func, deps) => {
   const didMount = useRef(false);
@@ -30,21 +30,5 @@ export const useKey = (key: any, action: () => void) => {
     }
     window.addEventListener("keyup", onKeyup);
     return () => window.removeEventListener("keyup", onKeyup);
-  }, []);
-};
-
-export const useOutsideClick = (ref: any, callback: (event: any) => void) => {
-  const handleClick = e => {
-    if (ref.current && !ref.current.contains(e.target)) {
-      callback(e);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("click", handleClick);
-
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
   }, []);
 };

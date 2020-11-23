@@ -8,6 +8,47 @@ export function DatePickers(props: Props) {
     <div>
       <PageTitle title="DatePickers" />
       <DatePickerInput placeholder="Prosím" value={date} onChange={d => setDate(d)} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <DatePickerInput placeholder="Prosím" value={date} onChange={d => setDate(d)} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <DatePickerInput placeholder="Prosím" value={date} onChange={d => setDate(d)} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <DatePickerInput placeholder="Prosím" value={date} onChange={d => setDate(d)} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <DatePickerInput placeholder="Prosím" value={date} onChange={d => setDate(d)} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <DatePickerInput placeholder="Prosím" value={date} onChange={d => setDate(d)} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <DatePickerInput placeholder="Prosím" value={date} onChange={d => setDate(d)} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 }

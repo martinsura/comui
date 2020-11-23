@@ -8,6 +8,7 @@ type Props = {
   text?: string | React.ReactNode;
   size?: ButtonSize;
   type?: ButtonType;
+  block?: boolean;
   variant?: ButtonVariant;
   loading?: boolean;
   disabled?: boolean;
@@ -64,6 +65,7 @@ export function Button(props: Props) {
         "text-green-color": hasSuccessText,
         "text-primary": hasPrimaryText,
         "p-0 m-0 bg-opacity-0 border-none": props.variant === "link",
+        "w-full": props.block,
         "cursor-not-allowed bg-opacity-70 border-opacity-70": props.disabled || props.loading,
       }}
       disabled={props.disabled || props.loading}

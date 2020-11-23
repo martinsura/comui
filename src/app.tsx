@@ -9,7 +9,7 @@ export function App() {
   return (
     <div className="min-h-screen flex  bg-gray-100">
       <Sidebar />
-      <div className="p-10">{route}</div>
+      <div className="p-10 w-full">{route}</div>
     </div>
   );
 }
